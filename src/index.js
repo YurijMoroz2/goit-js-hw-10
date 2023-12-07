@@ -15,10 +15,10 @@ const elementsToHide = document.querySelectorAll(
   const cat = document.querySelector('.cat-info');
   selectBox.id = 'single';
 
-  new SlimSelect({
-    select: '#single'   
+  // new SlimSelect({
+  //   select: '#single'   
     
-  })
+  // })
   elementsToHide.forEach(element => {
     element.style.display = 'none';
 });

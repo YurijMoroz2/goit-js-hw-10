@@ -9,20 +9,18 @@ axios.defaults.headers.common['x-api-key'] =
 const elementsToHide = document.querySelectorAll(
   'select, p.error, breed-select'
   );
+  const selectEl = document.querySelector('select')
   const selectBox = document.querySelector('.breed-select');
   const loader = document.querySelector('.loaders');
   const errorText = document.querySelector('.error');
   const cat = document.querySelector('.cat-info');
+  
   selectBox.id = 'single';
-
-  // new SlimSelect({
-  //   select: '#single'   
-    
-  // })
+  selectEl.id = 'single';
   elementsToHide.forEach(element => {
     element.style.display = 'none';
-});
-// ---------------------------------------------------------------------------------
+  });
+  // ---------------------------------------------------------------------------------
 fetchBreeds()
   // console.log(fetchBreeds());
   .then(data => {
@@ -44,16 +42,20 @@ fetchBreeds()
       optionElement.textContent = breed.name;
       optionElement.value = breed.id;
       selectBox.appendChild(optionElement);
-          });
-        // console.log(selectBox);
+      
+    });
+    new SlimSelect({
+      select: '#single'    
+    })
+    // console.log(selectBox);
   })
-   .catch(error =>{
-        // console.error("heiio");
+  .catch(error =>{
+    // console.error("heiio");
     errorText.style.display = "block"
     hideLoader()
     selectBox.style.display = 'none';
-        Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
-});
+    Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
+  });
 //  ---------------------------------------------------------------------------------
 // 1111111111111111111111111111111111111111111111111111111111111111111
 selectBox.addEventListener('change', handleChange);

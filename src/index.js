@@ -9,14 +9,12 @@ axios.defaults.headers.common['x-api-key'] =
 const elementsToHide = document.querySelectorAll(
   'select, p.error, breed-select'
   );
-  const selectEl = document.querySelector('select')
-  const selectBox = document.querySelector('.breed-select');
+    const selectBox = document.querySelector('.breed-select');
   const loader = document.querySelector('.loaders');
   const errorText = document.querySelector('.error');
   const cat = document.querySelector('.cat-info');
   
-  selectBox.id = 'single';
-  selectEl.id = 'single';
+ 
   elementsToHide.forEach(element => {
     element.style.display = 'none';
   });
@@ -25,18 +23,10 @@ fetchBreeds()
   // console.log(fetchBreeds());
   .then(data => {
     hideLoader();
-    setTimeout(() => {
-      selectBox.style.display = 'block';
-    }, 500);
-    const breeds = [];
-    // console.log('data', data);
-    data.forEach(item => {
-      breeds.push({
-        id: item.id,
-        name: item.name,
-      });
-    });
-    breeds.forEach(breed => {
+        selectBox.style.display = 'block';
+        
+          data.forEach(breed => {
+      // console.log('data', data);
       const optionElement = document.createElement('option');
       // console.log(optionElement);
       optionElement.textContent = breed.name;
@@ -45,9 +35,8 @@ fetchBreeds()
       
     });
     new SlimSelect({
-      select: '#single'    
+      select: '#selectElement'    
     })
-    // console.log(selectBox);
   })
   .catch(error =>{
     // console.error("heiio");
@@ -78,17 +67,16 @@ function handleChange(event) {
         .map(
           ({ breeds, url }) => `           
              <img src="${url}" alt="${breeds[0].name}" class="imeg" style="width: 500px";>
-             <div>
+             <div class="infoBox">
              <h2 class="name">${breeds[0].name}</h2>
              <p class="descr" >${breeds[0].description}</p>
              <p class="temperam"> <span style="font-size:24px;">Temperament:</span>${breeds[0].temperament}</p>
              </div>
              `
-        )
-        .join('');
-
-    }
-  })
+             )
+             .join('');             
+            }
+    })
   .catch(error =>{
     // console.error("hello");
     errorText.style.display = "block"
@@ -115,7 +103,6 @@ function hideElementsAndShowLoader() {
 }
 
 function showElementsAndHideLoader() {
-  selectBox.style.display = 'block';
-  cat.style.display = 'flex';
+    cat.style.display = 'flex';
   hideLoader();
 }
